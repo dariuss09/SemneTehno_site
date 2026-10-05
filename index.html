@@ -965,10 +965,13 @@ const modalClose = document.querySelector('.modal-close');
 if(reelModal) {
     const reelVideo = reelModal.querySelector('video');
 
-    reelTriggers.forEach(t => t.addEventListener('click', () => {
+    reelTriggers.forEach(t => t.addEventListener('click', (e) => {
+        e.preventDefault();
         reelModal.showModal();
-        document.body.style.overflow = 'hidden';
-        if (reelVideo) reelVideo.play();
+        if (reelVideo) {
+            reelVideo.currentTime = 0;
+            reelVideo.play().catch(() => {});
+        }
     }));
     
     modalClose.addEventListener('click', () => {
@@ -982,7 +985,6 @@ if(reelModal) {
     });
 
     reelModal.addEventListener('close', () => {
-        document.body.style.overflow = '';
         if (reelVideo) reelVideo.pause();
     });
 }
