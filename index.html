@@ -734,9 +734,10 @@
         const hudChecks = document.querySelectorAll('.hud-checks span');
         
         window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 960) return;
+            const processSection = document.querySelector('.process');
+            if (!processSection) return;
             
-            const rect = document.querySelector('.process').getBoundingClientRect();
+            const rect = processSection.getBoundingClientRect();
             const scrollPercent = Math.max(0, Math.min(1, Math.abs(rect.top) / (rect.height - window.innerHeight)));
             
             // Active step logic
